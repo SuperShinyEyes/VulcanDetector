@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		59CF304C1D85AA980041B89C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF304B1D85AA980041B89C /* AppDelegate.swift */; };
-		59CF304E1D85AA980041B89C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF304D1D85AA980041B89C /* ViewController.swift */; };
-		59CF30511D85AA980041B89C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59CF304F1D85AA980041B89C /* Main.storyboard */; };
+		59CF304E1D85AA980041B89C /* VulcanDetectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF304D1D85AA980041B89C /* VulcanDetectorController.swift */; };
 		59CF30531D85AA980041B89C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59CF30521D85AA980041B89C /* Assets.xcassets */; };
 		59CF30561D85AA980041B89C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59CF30541D85AA980041B89C /* LaunchScreen.storyboard */; };
+		59CF305F1D85ACAF0041B89C /* System Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF305E1D85ACAF0041B89C /* System Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		59CF30481D85AA980041B89C /* vulcanDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vulcanDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59CF304B1D85AA980041B89C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		59CF304D1D85AA980041B89C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		59CF30501D85AA980041B89C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		59CF304D1D85AA980041B89C /* VulcanDetectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VulcanDetectorController.swift; sourceTree = "<group>"; };
 		59CF30521D85AA980041B89C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59CF30551D85AA980041B89C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59CF30571D85AA980041B89C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59CF305E1D85ACAF0041B89C /* System Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "System Settings.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +55,21 @@
 			isa = PBXGroup;
 			children = (
 				59CF304B1D85AA980041B89C /* AppDelegate.swift */,
-				59CF304D1D85AA980041B89C /* ViewController.swift */,
-				59CF304F1D85AA980041B89C /* Main.storyboard */,
+				59CF304D1D85AA980041B89C /* VulcanDetectorController.swift */,
+				59CF305E1D85ACAF0041B89C /* System Settings.swift */,
 				59CF30521D85AA980041B89C /* Assets.xcassets */,
+				59CF305D1D85AAA50041B89C /* Supporting Files */,
+			);
+			path = vulcanDetector;
+			sourceTree = "<group>";
+		};
+		59CF305D1D85AAA50041B89C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				59CF30541D85AA980041B89C /* LaunchScreen.storyboard */,
 				59CF30571D85AA980041B89C /* Info.plist */,
 			);
-			path = vulcanDetector;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +133,6 @@
 			files = (
 				59CF30561D85AA980041B89C /* LaunchScreen.storyboard in Resources */,
 				59CF30531D85AA980041B89C /* Assets.xcassets in Resources */,
-				59CF30511D85AA980041B89C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59CF304E1D85AA980041B89C /* ViewController.swift in Sources */,
+				59CF304E1D85AA980041B89C /* VulcanDetectorController.swift in Sources */,
+				59CF305F1D85ACAF0041B89C /* System Settings.swift in Sources */,
 				59CF304C1D85AA980041B89C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,14 +152,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		59CF304F1D85AA980041B89C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				59CF30501D85AA980041B89C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		59CF30541D85AA980041B89C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -252,10 +252,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = vulcanDetector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.seyoung.vulcanDetector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -263,10 +266,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = vulcanDetector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.seyoung.vulcanDetector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
