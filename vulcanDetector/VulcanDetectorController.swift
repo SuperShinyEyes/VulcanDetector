@@ -57,24 +57,6 @@ class VulcanDetectorController: UIViewController {
         
     }
     
-    //    override func motionEnded(motion: UIEventSubtype,
-    //                              withEvent event: UIEvent?) {
-    //        
-    //        if motion == .MotionShake{
-    //            let controller = UIAlertController(title: "Shake",
-    //                                               message: "The device is shaken",
-    //                                               preferredStyle: .Alert)
-    //            
-    //            controller.addAction(UIAlertAction(title: "OK",
-    //                style: .Default,
-    //                handler: nil))
-    //            
-    //            presentViewController(controller, animated: true, completion: nil)
-    //            
-    //        }
-    //        
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -107,23 +89,6 @@ class VulcanDetectorController: UIViewController {
         } else {
             print("Accelerometer is not available")
         }
-    }
-    
-    func shake() {
-        updateFace(.Earthquake)
-    }
-    
-    private func loadButton() {
-        let button = UIButton(type: .System) // let preferred over var here
-        let width: CGFloat = 100
-        let height: CGFloat = 50
-        button.frame = CGRectMake(view.bounds.width - width - 20,
-                                  view.bounds.height - height - 20,
-                                  width, height)
-        button.backgroundColor = UIColor.greenColor()
-        button.setTitle("Shaky!", forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(shake), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(button)
     }
     
     private func loadFaceImage() {
