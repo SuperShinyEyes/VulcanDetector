@@ -31,7 +31,7 @@ class VulcanDetectorController: UIViewController {
         let new = NSDate().timeIntervalSince1970
         let diff = new - old
         //        print("diff: \(diff)")
-        return diff > 2
+        return diff > 1
     }
     
     private func updateFace(status: VibrationStatus) {
@@ -49,7 +49,7 @@ class VulcanDetectorController: UIViewController {
             print("X = \(data.x)\t Y = \(data.y)\t Z = \(data.z)")
             updateFace(.Earthquake)
         } else if isFaceUpdatableBackToSteady() {
-            print("updateFace(.Steady)")
+            //            print("updateFace(.Steady)")
             updateFace(.Steady)
         }
         
@@ -57,30 +57,43 @@ class VulcanDetectorController: UIViewController {
         
     }
     
-    override func motionEnded(motion: UIEventSubtype,
-                              withEvent event: UIEvent?) {
-        
-        if motion == .MotionShake{
-            let controller = UIAlertController(title: "Shake",
-                                               message: "The device is shaken",
-                                               preferredStyle: .Alert)
-            
-            controller.addAction(UIAlertAction(title: "OK",
-                style: .Default,
-                handler: nil))
-            
-            presentViewController(controller, animated: true, completion: nil)
-            
-        }
-        
-    }
+    //    override func motionEnded(motion: UIEventSubtype,
+    //                              withEvent event: UIEvent?) {
+    //        
+    //        if motion == .MotionShake{
+    //            let controller = UIAlertController(title: "Shake",
+    //                                               message: "The device is shaken",
+    //                                               preferredStyle: .Alert)
+    //            
+    //            controller.addAction(UIAlertAction(title: "OK",
+    //                style: .Default,
+    //                handler: nil))
+    //            
+    //            presentViewController(controller, animated: true, completion: nil)
+    //            
+    //        }
+    //        
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        loadFaceImage()
+        loadMotionManager()
+        
+    }
+    
+    private func loadMotionManager() {
+        motionManager.accelerometerUpdateInterval = 1.0 / 30
+        
         if motionManager.accelerometerAvailable{
-            let queue = NSOperationQueue()
+            /// UI elements can be only updated in main queue
+            /// Recommend: let queue = NSOperationQueue()
+            let queue = NSOperationQueue.mainQueue()
             motionManager.startAccelerometerUpdatesToQueue(queue, withHandler:
                 {data, error in
                     
@@ -88,20 +101,29 @@ class VulcanDetectorController: UIViewController {
                         return
                     }
                     self.printAcceleration(data.acceleration)
-                    //                    print("X = \(data.acceleration.x)\t Y = \(data.acceleration.y)\t Z = \(data.acceleration.z)")
-                    //                    print("Y = \(data.acceleration.y)")
-                    //                    print("Z = \(data.acceleration.z)")
                     
                 }
             )
         } else {
             print("Accelerometer is not available")
         }
-        
     }
     
-    override func viewDidAppear(animated: Bool) {
-        loadFaceImage()
+    func shake() {
+        updateFace(.Earthquake)
+    }
+    
+    private func loadButton() {
+        let button = UIButton(type: .System) // let preferred over var here
+        let width: CGFloat = 100
+        let height: CGFloat = 50
+        button.frame = CGRectMake(view.bounds.width - width - 20,
+                                  view.bounds.height - height - 20,
+                                  width, height)
+        button.backgroundColor = UIColor.greenColor()
+        button.setTitle("Shaky!", forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(shake), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(button)
     }
     
     private func loadFaceImage() {
