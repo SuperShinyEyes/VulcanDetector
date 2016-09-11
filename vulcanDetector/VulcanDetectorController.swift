@@ -20,7 +20,9 @@ class VulcanDetectorController: UIViewController {
     var timeIntervalAtEarthquake: NSTimeInterval?
     
     private func didShake(old: CMAcceleration?, new: CMAcceleration) -> Bool {
-        guard let old = old else { return true }
+        guard let old = old else {
+            accelerationDataHolder = new
+            return false }
         let diff = abs(old.x - new.x) + abs(old.y - new.y) + abs(old.z - new.z)
         
         return diff > 1
@@ -30,7 +32,6 @@ class VulcanDetectorController: UIViewController {
         guard let old = timeIntervalAtEarthquake else { return true }
         let new = NSDate().timeIntervalSince1970
         let diff = new - old
-        //        print("diff: \(diff)")
         return diff > 1
     }
     
@@ -76,12 +77,15 @@ class VulcanDetectorController: UIViewController {
             /// UI elements can be only updated in main queue
             /// Recommend: let queue = NSOperationQueue()
             let queue = NSOperationQueue.mainQueue()
+            
+            /// Load queue
             motionManager.startAccelerometerUpdatesToQueue(queue, withHandler:
                 {data, error in
                     
                     guard let data = data else{
                         return
                     }
+                    
                     self.printAcceleration(data.acceleration)
                     
                 }
