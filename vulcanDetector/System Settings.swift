@@ -25,4 +25,5 @@ enum EarthquakeMagnitude: String {
     case Strong = "red"
     case Medium = "orange"
     case Mild = "yellow"
+    case Steady = "green"
 }

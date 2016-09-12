@@ -25,6 +25,12 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     var faceView: UIImageView!
     var faceStatus = VibrationStatus.Steady
     var timeIntervalAtEarthquake: NSTimeInterval?
+    var magnitudeState = EarthquakeMagnitude.Steady {
+        didSet(old) {
+            guard old != magnitudeState else { return }
+            
+        }
+    }
     
     private func didShake(old: CMAcceleration?, new: CMAcceleration) -> (Bool, Double) {
         guard let old = old else {
@@ -52,7 +58,8 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     
     private func getMagnitudeColor(diff: Double) -> EarthquakeMagnitude {
         switch diff {
-        case 0..<0.6: return .Mild
+        case 0..<Constants.didShakeThreshold: return .Steady
+        case Constants.didShakeThreshold..<0.6: return .Mild
         case 0.6..<1.0: return .Medium
         default: return .Strong
         }
