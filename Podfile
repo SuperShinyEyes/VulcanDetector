@@ -5,6 +5,7 @@ use_frameworks!
 def pods
     pod 'Alamofire', '~> 3.5'
     pod 'SwiftyBeaver' # Logging w/ colors
+    pod 'SwiftyJSON'
 end
 
 

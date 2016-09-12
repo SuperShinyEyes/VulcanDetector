@@ -11,6 +11,7 @@ import CoreMotion
 import CoreLocation
 import MapKit
 import Alamofire
+import SwiftyJSON
 
 class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     
@@ -46,10 +47,27 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
         let image = UIImage(named: status.rawValue)
         faceView.image = image
         faceStatus = status
+        sendToServer()
     }
     
     private func sendToServer() {
-        Alamofire.request("https://httpbin.org/post", method: .post)
+        guard let coord = userCoordinate else { return }
+        let params = ["longitude":coord.longitude, "latitude":coord.latitude]
+        Alamofire.request(.PUT, Constants.serverURL, parameters: params)
+            .responseJSON { response in
+                guard response.result.error == nil else {
+                    // got an error in getting the data, need to handle it
+                    print("error calling POST on /todos/1")
+                    print(response.result.error!)
+                    return
+                }
+                
+                if let value = response.result.value {
+                    let todo = JSON(value)
+                    print("The todo is: " + todo.description)
+                }
+        }
+        
     }
     
     private func printAcceleration(data: CMAcceleration){
