@@ -111,6 +111,7 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
             updateFace(.Steady)
         }
         accelerationDataHolder = data
+        print(">>> diff: \(diff) \n\t String: \(diff)")
         updateMagnitudeLabelText(String(diff))
         magnitudeState = getMagnitudeState(diff)
     }
@@ -218,13 +219,16 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     
     private func loadMagnitudeLabel(text: String) {
         magnitudeLabel = UILabel()
+        let width: CGFloat = 250
         magnitudeLabel.frame = CGRectMake(
-            faceView.frame.midX,
-            faceView.frame.maxY + 10, 100, 40)
+            faceView.frame.midX - (width/2),
+            faceView.frame.maxY + 15, width, 40)
         magnitudeLabel.backgroundColor = UIColor.clearColor()
         magnitudeLabel.textColor = UIColor.whiteColor()
         magnitudeLabel.textAlignment = NSTextAlignment.Center
+        magnitudeLabel.font = magnitudeLabel.font.fontWithSize(20)
         magnitudeLabel.text = text
+        
         self.view.addSubview(magnitudeLabel)
     }
     
