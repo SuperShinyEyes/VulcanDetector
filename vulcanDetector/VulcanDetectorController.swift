@@ -21,17 +21,17 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     
     var accelerationDataHolder: CMAcceleration?
     
+    var magnitudeLabel: UILabel!
     var faceView: UIImageView!
     var faceStatus = VibrationStatus.Steady
     var timeIntervalAtEarthquake: NSTimeInterval?
     
-    private func didShake(old: CMAcceleration?, new: CMAcceleration) -> Bool {
+    private func didShake(old: CMAcceleration?, new: CMAcceleration) -> (Bool, Double) {
         guard let old = old else {
             accelerationDataHolder = new
-            return false }
+            return (false, 0) }
         let diff = abs(old.x - new.x) + abs(old.y - new.y) + abs(old.z - new.z)
-        
-        return diff > 1
+        return (diff > 1, diff)
     }
     
     private func isFaceUpdatableBackToSteady() -> Bool {
@@ -71,7 +71,8 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     }
     
     private func printAcceleration(data: CMAcceleration){
-        if didShake(accelerationDataHolder, new: data) {
+        let (didShakeBool, diff) = didShake(accelerationDataHolder, new: data)
+        if didShakeBool == true {
             accelerationDataHolder = data
             timeIntervalAtEarthquake = NSDate().timeIntervalSince1970
             print("X = \(data.x)\t Y = \(data.y)\t Z = \(data.z)")
@@ -80,7 +81,7 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
             //            print("updateFace(.Steady)")
             updateFace(.Steady)
         }
-        
+        updateMagnitudeLabelText(String(diff))
     }
     
     override func viewDidLoad() {
@@ -92,6 +93,7 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidAppear(animated: Bool) {
         loadFaceImage()
+        loadMagnitudeLabel("0.0")
         loadMotionManager()
         
     }
@@ -147,6 +149,22 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
         } else {
             print("Accelerometer is not available")
         }
+    }
+    
+    private func updateMagnitudeLabelText(text: String) {
+        magnitudeLabel.text = text
+    }
+    
+    private func loadMagnitudeLabel(text: String) {
+        magnitudeLabel = UILabel()
+        magnitudeLabel.frame = CGRectMake(
+            faceView.frame.midX,
+            faceView.frame.maxY + 10, 100, 40)
+        magnitudeLabel.backgroundColor = UIColor.clearColor()
+        magnitudeLabel.textColor = UIColor.whiteColor()
+        magnitudeLabel.textAlignment = NSTextAlignment.Center
+        magnitudeLabel.text = text
+        self.view.addSubview(magnitudeLabel)
     }
     
     private func loadFaceImage() {

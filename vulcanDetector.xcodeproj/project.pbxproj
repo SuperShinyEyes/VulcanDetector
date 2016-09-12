@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		593444EA1D868EE300366880 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		59CF30481D85AA980041B89C /* vulcanDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vulcanDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59CF304B1D85AA980041B89C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59CF304D1D85AA980041B89C /* VulcanDetectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VulcanDetectorController.swift; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 			children = (
 				59CF30541D85AA980041B89C /* LaunchScreen.storyboard */,
 				59CF30571D85AA980041B89C /* Info.plist */,
+				593444EA1D868EE300366880 /* MyPlayground.playground */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
