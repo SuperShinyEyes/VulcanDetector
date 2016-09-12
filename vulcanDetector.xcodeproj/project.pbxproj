@@ -12,6 +12,7 @@
 		59CF30531D85AA980041B89C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59CF30521D85AA980041B89C /* Assets.xcassets */; };
 		59CF30561D85AA980041B89C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59CF30541D85AA980041B89C /* LaunchScreen.storyboard */; };
 		59CF305F1D85ACAF0041B89C /* System Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF305E1D85ACAF0041B89C /* System Settings.swift */; };
+		D704034C8238140AA47368AD /* Pods_vulcanDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C56F8136526102E131CCE06F /* Pods_vulcanDetector.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		59CF30551D85AA980041B89C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59CF30571D85AA980041B89C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59CF305E1D85ACAF0041B89C /* System Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "System Settings.swift"; sourceTree = "<group>"; };
+		BD4F2AC3CE4172A285C1F946 /* Pods-vulcanDetector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vulcanDetector.debug.xcconfig"; path = "Pods/Target Support Files/Pods-vulcanDetector/Pods-vulcanDetector.debug.xcconfig"; sourceTree = "<group>"; };
+		C56F8136526102E131CCE06F /* Pods_vulcanDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vulcanDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFB3B415330258352F4DB9A6 /* Pods-vulcanDetector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vulcanDetector.release.xcconfig"; path = "Pods/Target Support Files/Pods-vulcanDetector/Pods-vulcanDetector.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D704034C8238140AA47368AD /* Pods_vulcanDetector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				59CF304A1D85AA980041B89C /* vulcanDetector */,
 				59CF30491D85AA980041B89C /* Products */,
+				A994A5048B4A10EFAB18FFBA /* Pods */,
+				919FF31C70FA7B815A5CC5A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +79,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		919FF31C70FA7B815A5CC5A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C56F8136526102E131CCE06F /* Pods_vulcanDetector.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A994A5048B4A10EFAB18FFBA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BD4F2AC3CE4172A285C1F946 /* Pods-vulcanDetector.debug.xcconfig */,
+				EFB3B415330258352F4DB9A6 /* Pods-vulcanDetector.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -79,9 +103,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 59CF305A1D85AA980041B89C /* Build configuration list for PBXNativeTarget "vulcanDetector" */;
 			buildPhases = (
+				C2EBA7A52CE18C4BEFFB9A49 /* [CP] Check Pods Manifest.lock */,
 				59CF30441D85AA980041B89C /* Sources */,
 				59CF30451D85AA980041B89C /* Frameworks */,
 				59CF30461D85AA980041B89C /* Resources */,
+				77EFB058202D47D1A27AA425 /* [CP] Embed Pods Frameworks */,
+				8E5170A6CC97802F5C371980 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -137,6 +164,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		77EFB058202D47D1A27AA425 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-vulcanDetector/Pods-vulcanDetector-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E5170A6CC97802F5C371980 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-vulcanDetector/Pods-vulcanDetector-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2EBA7A52CE18C4BEFFB9A49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		59CF30441D85AA980041B89C /* Sources */ = {
@@ -250,6 +325,7 @@
 		};
 		59CF305B1D85AA980041B89C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD4F2AC3CE4172A285C1F946 /* Pods-vulcanDetector.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -264,6 +340,7 @@
 		};
 		59CF305C1D85AA980041B89C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFB3B415330258352F4DB9A6 /* Pods-vulcanDetector.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -295,6 +372,7 @@
 				59CF305C1D85AA980041B89C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

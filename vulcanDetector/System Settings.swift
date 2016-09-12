@@ -9,7 +9,7 @@
 import Foundation
 
 struct Constants {
-    
+    static let serverURL = "https://powerful-oasis-83494.herokuapp.com/seyoung-iphone"
     
 }
 

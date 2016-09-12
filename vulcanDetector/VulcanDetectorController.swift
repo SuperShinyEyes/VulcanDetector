@@ -8,8 +8,13 @@
 
 import UIKit
 import CoreMotion
+import CoreLocation
+import MapKit
+import Alamofire
 
-class VulcanDetectorController: UIViewController {
+class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
+    
+    var locationManager: CLLocationManager?
     
     lazy var motionManager = CMMotionManager()
     
@@ -43,6 +48,10 @@ class VulcanDetectorController: UIViewController {
         faceStatus = status
     }
     
+    private func sendToServer() {
+        Alamofire.request("https://httpbin.org/post", method: .post)
+    }
+    
     private func printAcceleration(data: CMAcceleration){
         if didShake(accelerationDataHolder, new: data) {
             accelerationDataHolder = data
@@ -54,20 +63,47 @@ class VulcanDetectorController: UIViewController {
             updateFace(.Steady)
         }
         
-        
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        loadLocationManager()
     }
     
     override func viewDidAppear(animated: Bool) {
         loadFaceImage()
         loadMotionManager()
         
+    }
+    
+    private func loadLocationManager() {
+        // Ask for Authorisation from the User.
+        if (CLLocationManager.locationServicesEnabled()) {
+            locationManager = CLLocationManager()
+            locationManager!.delegate = self
+            locationManager!.requestAlwaysAuthorization()
+            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager!.startUpdatingLocation()
+        }
+    }
+    
+    var userCoordinate: CLLocationCoordinate2D? {
+        didSet {
+            guard let coord = userCoordinate else { return }
+            print(coord)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = manager.location else { return }
+        userCoordinate = location.coordinate
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        print("Failed to get location")
+        print(error)
     }
     
     private func loadMotionManager() {

@@ -3,7 +3,7 @@ inhibit_all_warnings!
 use_frameworks!
 
 def pods
-    pod 'Alamofire', '~> 4.0'
+    pod 'Alamofire', '~> 3.5'
     pod 'SwiftyBeaver' # Logging w/ colors
 end
 
