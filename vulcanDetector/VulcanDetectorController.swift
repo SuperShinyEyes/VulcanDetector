@@ -31,7 +31,7 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
             accelerationDataHolder = new
             return (false, 0) }
         let diff = abs(old.x - new.x) + abs(old.y - new.y) + abs(old.z - new.z)
-        return (diff > 1, diff)
+        return (diff > Constants.didShakeThreshold, diff)
     }
     
     private func isFaceUpdatableBackToSteady() -> Bool {
@@ -48,6 +48,14 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
         faceView.image = image
         faceStatus = status
         sendToServer()
+    }
+    
+    private func getMagnitudeColor(diff: Double) -> EarthquakeMagnitude {
+        switch diff {
+        case 0..<0.6: return .Mild
+        case 0.6..<1.0: return .Medium
+        default: return .Strong
+        }
     }
     
     private func sendToServer() {
@@ -127,7 +135,7 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     }
     
     private func loadMotionManager() {
-        motionManager.accelerometerUpdateInterval = 1.0 / 30
+        motionManager.accelerometerUpdateInterval = 1.0 / 4
         
         if motionManager.accelerometerAvailable{
             /// UI elements can be only updated in main queue
