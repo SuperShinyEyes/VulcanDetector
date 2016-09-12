@@ -1,0 +1,6 @@
+framework module Pods_vulcanDetector {
+  umbrella header "Pods-vulcanDetector-umbrella.h"
+
+  export *
+  module * { export * }
+}

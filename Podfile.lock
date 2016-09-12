@@ -1,0 +1,15 @@
+PODS:
+  - Alamofire (4.0.0)
+  - SwiftyBeaver (0.6.5)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - SwiftyBeaver
+
+SPEC CHECKSUMS:
+  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
+  SwiftyBeaver: 1f7e6378e75bae631bb219fa0a351ce6f34a40da
+
+PODFILE CHECKSUM: 1254758bf6759fc68cb9df2c200f2bef60b366e6
+
+COCOAPODS: 1.0.1
