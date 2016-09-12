@@ -28,7 +28,7 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     var magnitudeState = EarthquakeMagnitude.Steady {
         didSet(old) {
             guard old != magnitudeState else { return }
-            
+            sendToServer()
         }
     }
     
@@ -53,10 +53,10 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
         let image = UIImage(named: status.rawValue)
         faceView.image = image
         faceStatus = status
-        sendToServer()
+        //        sendToServer()
     }
     
-    private func getMagnitudeColor(diff: Double) -> EarthquakeMagnitude {
+    private func getMagnitudeState(diff: Double) -> EarthquakeMagnitude {
         switch diff {
         case 0..<Constants.didShakeThreshold: return .Steady
         case Constants.didShakeThreshold..<0.6: return .Mild
@@ -67,7 +67,13 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     
     private func sendToServer() {
         guard let coord = userCoordinate else { return }
-        let params = ["longitude":coord.longitude, "latitude":coord.latitude]
+        
+        let params = [
+            "longitude":String(coord.longitude),
+            "latitude":String(coord.latitude),
+            "magnitude": magnitudeState.rawValue
+        ]
+        
         Alamofire.request(.PUT, Constants.serverURL, parameters: params)
             .responseJSON { response in
                 guard response.result.error == nil else {
@@ -88,7 +94,7 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     private func printAcceleration(data: CMAcceleration){
         let (didShakeBool, diff) = didShake(accelerationDataHolder, new: data)
         if didShakeBool == true {
-            accelerationDataHolder = data
+            
             timeIntervalAtEarthquake = NSDate().timeIntervalSince1970
             print("X = \(data.x)\t Y = \(data.y)\t Z = \(data.z)")
             updateFace(.Earthquake)
@@ -96,7 +102,9 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
             //            print("updateFace(.Steady)")
             updateFace(.Steady)
         }
+        accelerationDataHolder = data
         updateMagnitudeLabelText(String(diff))
+        magnitudeState = getMagnitudeState(diff)
     }
     
     override func viewDidLoad() {
