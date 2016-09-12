@@ -71,7 +71,8 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
         let params = [
             "longitude":String(coord.longitude),
             "latitude":String(coord.latitude),
-            "magnitude": magnitudeState.rawValue
+            "magnitude": magnitudeState.rawValue,
+            "timeStamp": String(NSDate().timeIntervalSince1970)
         ]
         
         Alamofire.request(.PUT, Constants.serverURL, parameters: params)
