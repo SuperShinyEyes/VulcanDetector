@@ -10,7 +10,7 @@ import Foundation
 
 struct Constants {
     static let serverURL = "https://powerful-oasis-83494.herokuapp.com/seyoung-iphone"
-    static let didShakeThreshold: Double = 0.4
+    static let didShakeThreshold: Double = 0.1
 }
 
 enum VibrationStatus: String {

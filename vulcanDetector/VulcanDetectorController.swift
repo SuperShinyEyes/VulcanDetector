@@ -92,8 +92,15 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    private func didShake(standardDeviation: CMAcceleration) -> (Bool, Double) {
+        let xyz = standardDeviation.x + standardDeviation.y + standardDeviation.z
+        return (xyz > Constants.didShakeThreshold, xyz)
+    }
+    
+    
     private func printAcceleration(data: CMAcceleration){
-        let (didShakeBool, diff) = didShake(accelerationDataHolder, new: data)
+        //        let (didShakeBool, diff) = didShake(accelerationDataHolder, new: data)
+        let (didShakeBool, diff) = didShake(data)
         if didShakeBool == true {
             
             timeIntervalAtEarthquake = NSDate().timeIntervalSince1970
@@ -136,7 +143,6 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
     var userCoordinate: CLLocationCoordinate2D? {
         didSet {
             guard let coord = userCoordinate else { return }
-            print(coord)
         }
     }
     
@@ -150,14 +156,36 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
         print(error)
     }
     
+    func isIntervalOver(start old: Double, end new: Double) -> Bool {
+        return new - old >= 0.5
+    }
+    
+    func getAverage(container: [CMAcceleration], count: Double) -> CMAcceleration {
+        let x = container.map{ $0.x }.reduce(0, combine: +) / count
+        let y = container.map{ $0.y }.reduce(0, combine: +) / count
+        let z = container.map{ $0.z }.reduce(0, combine: +) / count
+        return CMAcceleration(x: x, y: y, z: z)
+    }
+    
+    func getStandardDeviation(container: [CMAcceleration]) -> CMAcceleration {
+        let count = Double(container.count)
+        let avg = getAverage(container, count: count)
+        let x = container.map{ pow($0.x - avg.x, 2) }.reduce(0, combine: +) / count
+        let y = container.map{ pow($0.y - avg.y, 2) }.reduce(0, combine: +) / count
+        let z = container.map{ pow($0.z - avg.z, 2) }.reduce(0, combine: +) / count
+        
+        return CMAcceleration(x: x, y: y, z: z)
+    }
+    
     private func loadMotionManager() {
-        motionManager.accelerometerUpdateInterval = 1.0 / 4
+        motionManager.accelerometerUpdateInterval = 1.0 / 30
         
         if motionManager.accelerometerAvailable{
             /// UI elements can be only updated in main queue
             /// Recommend: let queue = NSOperationQueue()
             let queue = NSOperationQueue.mainQueue()
-            
+            var intervalStart = NSDate().timeIntervalSince1970
+            var accelerationContainer = [CMAcceleration]()
             /// Load queue
             motionManager.startAccelerometerUpdatesToQueue(queue, withHandler:
                 {data, error in
@@ -166,7 +194,16 @@ class VulcanDetectorController: UIViewController, CLLocationManagerDelegate {
                         return
                     }
                     
-                    self.printAcceleration(data.acceleration)
+                    let intervalEnd = NSDate().timeIntervalSince1970
+                    if self.isIntervalOver(start: intervalStart, end: intervalEnd) {
+                        let standardDeviation = self.getStandardDeviation(accelerationContainer)
+                        self.printAcceleration(standardDeviation)
+                        intervalStart = NSDate().timeIntervalSince1970
+                        accelerationContainer = [CMAcceleration]()
+                    } else {
+                        accelerationContainer.append(data.acceleration)
+                    }
+                    
                     
                 }
             )
